@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace WebApi.Model
+namespace WebApi.Model.Entidades
 {
     public class Aluno
     {

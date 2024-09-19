@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace WebApi.Model
+namespace WebApi.Model.Entidades
 {
     public class Matricula
     {
-        public int AlunoId { get; set; }
+        public long Id { get; set; }
         public Aluno Aluno { get; set; }
-        public int CursoId { get; set; }
         public Curso Curso { get; set; }
     }
 }

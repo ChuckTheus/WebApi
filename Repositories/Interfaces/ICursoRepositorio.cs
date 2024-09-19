@@ -1,4 +1,4 @@
-﻿using WebApi.Model;
+﻿using WebApi.Model.Entidades;
 
 namespace WebApi.Repositories.Interfaces
 {

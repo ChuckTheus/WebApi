@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WebApi.Model;
+using WebApi.Model.Entidades;
 
 namespace WebApi.Infra
 {

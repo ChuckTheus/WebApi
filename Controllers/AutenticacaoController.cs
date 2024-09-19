@@ -1,24 +1,29 @@
 ﻿using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Model.Entidades;
+using WebApi.Model.Responses;
+using WebApi.Repositories.Interfaces;
 
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("/")]
+    [Route("/[controller]")]
     public class AutenticacaoController : Controller
     {
-        [HttpPost]
-        [Route("/autenticar")]
-        public ActionResult<string> Autenticar(LoginRequest loqinRequest)
+        private readonly IAutenticacaoRepositorio _autenticacaoRepositorio;
+        
+        public AutenticacaoController(IAutenticacaoRepositorio autenticacaoRepositorio)
         {
-           /* var usuario = _repositorio.Autenticar(loqinRequest);
-            if (usuario = null)
-            { 
-                return Unauthorized("Login ou Senha inválidos");
-            }
+            _autenticacaoRepositorio = autenticacaoRepositorio;
+        }
 
-            string token = _jwtService.GerarToken(usuario);*/
-            return Ok();
+        [HttpPost]
+        [Route("/[action]")]
+        public IActionResult Autenticar([FromBody] LoginRequest loqinRequest)
+        {
+            string token = _autenticacaoRepositorio.Autenticar(loqinRequest);
+ 
+            return Ok(new LoginUsuarioResponse { Token = token, HttpCode = StatusCodes.Status200OK }); 
         }
     }
 }

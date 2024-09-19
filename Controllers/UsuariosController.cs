@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("/")]
+    [Route("/[controller]")]
     public class UsuariosController : Controller
     {
-        [HttpGet]
-        public ActionResult Autenticar() 
-        { 
+        [HttpGet("/")]
+        public IActionResult Get([FromRoute] string nome)
+        {
+            //RETORNAR CandidatoVo PREENCHIDO
             return Ok();
         }
     }
