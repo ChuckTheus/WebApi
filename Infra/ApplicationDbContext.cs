@@ -4,12 +4,17 @@ using WebApi.Model.Entidades;
 
 namespace WebApi.Infra
 {
-    public class BusinessContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<Usuario>
     {
-        public BusinessContext(DbContextOptions<BusinessContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Aluno> Alunos { get; set; }
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Matricula> Matriculas { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

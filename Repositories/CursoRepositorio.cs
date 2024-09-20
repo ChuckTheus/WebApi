@@ -7,9 +7,9 @@ namespace WebApi.Repositories
 {
     public class CursoRepositorio : ICursoRepositorio
     {
-        private readonly BusinessContext _businessContext;
+        private readonly ApplicationDbContext _businessContext;
         
-        public CursoRepositorio(BusinessContext businessContext)
+        public CursoRepositorio(ApplicationDbContext businessContext)
         {
             _businessContext = businessContext;
         }

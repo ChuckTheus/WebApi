@@ -21,9 +21,9 @@ namespace WebApi.Controllers
         [Route("/[action]")]
         public IActionResult Autenticar([FromBody] LoginRequest loqinRequest)
         {
-            string token = _autenticacaoRepositorio.Autenticar(loqinRequest);
+            var token = _autenticacaoRepositorio.AutenticarAsync(loqinRequest);
  
-            return Ok(new LoginUsuarioResponse { Token = token, HttpCode = StatusCodes.Status200OK }); 
+            return Ok(new LoginUsuarioResponse { Token = token.ToString(), HttpCode = StatusCodes.Status200OK }); 
         }
     }
 }

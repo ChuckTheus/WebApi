@@ -7,7 +7,6 @@ namespace WebApi.Repositories.Interfaces
 {
     public interface IAutenticacaoRepositorio
     {
-        string Autenticar(LoginRequest loginRequest);
-        string GerarToken();
+        Task<string> AutenticarAsync(LoginRequest loginRequest);
     }
 }
