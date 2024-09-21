@@ -10,6 +10,7 @@ namespace WebApi.Controllers
         [HttpGet("/")]
         public IActionResult Get([FromRoute] string nome)
         {
+
             //RETORNAR CandidatoVo PREENCHIDO
             return Ok();
         }
