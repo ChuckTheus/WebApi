@@ -1,8 +1,7 @@
-﻿namespace WebApi.Model.Responses
+﻿namespace WebApi.ViewObjects
 {
     public class LoginUsuarioResponse
     {
         public string Token { get; set; }
-        public int HttpCode { get; set; }
     }
 }

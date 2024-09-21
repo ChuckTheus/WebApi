@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace WebApi.Model.Entidades
+namespace WebApi.Model
 {
     public class Curso
     {

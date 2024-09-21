@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Model.Entidades;
-using WebApi.Model.Responses;
 using WebApi.Repositories.Interfaces;
+using WebApi.ViewObjects;
 
 namespace WebApi.Controllers
 {
@@ -23,7 +22,7 @@ namespace WebApi.Controllers
         {
             var token = _autenticacaoRepositorio.AutenticarAsync(loqinRequest);
  
-            return Ok(new LoginUsuarioResponse { Token = token.ToString(), HttpCode = StatusCodes.Status200OK }); 
+            return Ok(new LoginUsuarioResponse { Token = token.ToString() }); 
         }
     }
 }
