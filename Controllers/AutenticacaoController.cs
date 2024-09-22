@@ -6,7 +6,7 @@ using WebApi.ViewObjects;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("/[controller]")]
+    [Route("[controller]")]
     public class AutenticacaoController : Controller
     {
         private readonly IAutenticacaoRepositorio _autenticacaoRepositorio;
@@ -16,12 +16,14 @@ namespace WebApi.Controllers
             _autenticacaoRepositorio = autenticacaoRepositorio;
         }
 
-        [HttpPost]
-        [Route("/[action]")]
-        public IActionResult Autenticar([FromBody] LoginRequest loqinRequest)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AutenticarAsync([FromBody] LoginRequest loqinRequest)
         {
-            var token = _autenticacaoRepositorio.AutenticarAsync(loqinRequest);
- 
+            var token = await _autenticacaoRepositorio.AutenticarAsync(loqinRequest);
+
+            if (token == null)
+                return Unauthorized(new { mensagem = "Login ou Senha inválidos" });
+
             return Ok(new LoginUsuarioResponse { Token = token.ToString() }); 
         }
     }

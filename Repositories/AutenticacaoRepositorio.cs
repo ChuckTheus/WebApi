@@ -31,7 +31,10 @@ namespace WebApi.Repositories
 
         public async Task<string> AutenticarAsync(LoginRequest loginRequest)
         {
-            Usuario usuario = await _userManager.FindByEmailAsync(loginRequest.Email);
+            var usuario = await _userManager.FindByEmailAsync(loginRequest.Email);
+
+            if (usuario == null)
+                return null;
 
             var checarLogin = await _signInManager.CheckPasswordSignInAsync(usuario, loginRequest.Password, false);
 

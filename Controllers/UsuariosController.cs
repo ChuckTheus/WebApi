@@ -7,7 +7,7 @@ namespace WebApi.Controllers
     [Route("/[controller]")]
     public class UsuariosController : Controller
     {
-        [HttpGet("/")]
+        [HttpGet("[action]")]
         public IActionResult Get([FromRoute] string nome)
         {
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Linq;
+using System.Threading.Tasks;
 using WebApi.Model;
 
 public static class SeedData
@@ -10,7 +10,7 @@ public static class SeedData
     {
         var userManager = serviceProvider.GetRequiredService<UserManager<Usuario>>();
 
-        if (!userManager.Users.Any())
+        if (await userManager.FindByEmailAsync("candidato@softlabsolucoes.com.br") == null)
         {
             var user = new Usuario
             {

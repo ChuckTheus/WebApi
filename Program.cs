@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Infra;
 using WebApi.Model;
+using WebApi.Repositories.Interfaces;
+using WebApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,9 @@ builder.Services.AddIdentity<Usuario, IdentityRole>()
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IAutenticacaoRepositorio, AutenticacaoRepositorio>();
+
 
 var app = builder.Build();
 

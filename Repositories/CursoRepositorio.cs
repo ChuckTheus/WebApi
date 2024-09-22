@@ -1,6 +1,5 @@
 ﻿using WebApi.Infra;
 using WebApi.Model;
-using WebApi.Model.Entidades;
 using WebApi.Repositories.Interfaces;
 
 namespace WebApi.Repositories

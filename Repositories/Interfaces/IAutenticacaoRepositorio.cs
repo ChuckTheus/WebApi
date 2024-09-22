@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.Data;
 using WebApi.Model;
-using WebApi.Model.Entidades;
-using WebApi.Model.Responses;
+
 
 namespace WebApi.Repositories.Interfaces
 {
