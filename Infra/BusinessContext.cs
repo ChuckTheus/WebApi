@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebApi.Model;
 
 namespace WebApi.Infra
 {
@@ -8,10 +9,7 @@ namespace WebApi.Infra
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Matricula> Matriculas { get; set; }
 
-        public BusinessContext(DbContextOptions<BusinessContext> options)
-            : base(options)
-        {
-        }
+        public BusinessContext(DbContextOptions<BusinessContext> options) : base(options){}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
