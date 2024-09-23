@@ -8,6 +8,9 @@ using WebApi.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WebApi;
+using Microsoft.Extensions.Logging;
+using WebApi.ViewObjects;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,21 +28,26 @@ builder.Services.AddControllers();
 
 // Configurando o Swagger para permitir autenticação com JWT
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
+builder.Services.AddSwaggerGen(c =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI SoftLab", Version = "v1" });
-
-    // Configuração para adicionar o campo de Bearer Token no Swagger
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Insira o token JWT no campo de texto a seguir: Bearer {seu token}"
+        Version = "v1",
+        Title = "Softlab - Seleção 2024.1",
+        Description = "API para a seleção Softlab."
     });
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+
+    // Adiciona suporte para JWT
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Insira o token JWT neste formato: Bearer {seu token}",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
     {
         {
             new OpenApiSecurityScheme
@@ -48,14 +56,17 @@ builder.Services.AddSwaggerGen(options =>
                 {
                     Type = ReferenceType.SecurityScheme,
                     Id = "Bearer"
-                }
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header
             },
-            new string[] {}
+            new List<string>()
         }
     });
 });
 
-// Injeção de dependência para os repositórios
+// Injeção de dependência para repositório
 builder.Services.AddScoped<IAutenticacaoRepositorio, AutenticacaoRepositorio>();
 
 // Configurando autenticação com JWT
@@ -77,6 +88,8 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Logging.AddFile("logs/app-{Date}.txt");
+
 // Construindo o app
 var app = builder.Build();
 
@@ -92,6 +105,19 @@ if (app.Environment.IsDevelopment())
 
 // Middleware padrão da aplicação
 app.UseHttpsRedirection();
+app.UseMiddleware<LoggingMiddleware>();
+
+app.MapGet("/", () =>
+{
+    var candidato = new CandidatoVo
+    {
+        Nome = "Matheus Freire de Oliveira",
+        UrlLinkedin = "https://www.linkedin.com/in/matheus-freire-a322b5215/",
+        UrlGitHub = "https://github.com/ChuckTheus"
+    };
+
+    return Results.Ok(candidato);
+});
 
 // Autenticação e autorização
 app.UseAuthentication();

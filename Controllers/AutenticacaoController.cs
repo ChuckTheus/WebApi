@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.Data;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 using WebApi.Repositories.Interfaces;
 using WebApi.ViewObjects;
 
@@ -16,6 +18,13 @@ namespace WebApi.Controllers
             _autenticacaoRepositorio = autenticacaoRepositorio;
         }
 
+        /// <summary>
+        /// Autentica um usuário e retorna um token JWT.
+        /// </summary>
+        /// <param name="loginRequest">Informações de login.</param>
+        /// <returns>Token JWT.</returns>
+        [ProducesResponseType(typeof(LoginUsuarioResponse), 200)]
+        [ProducesResponseType(typeof(string), 401)]
         [HttpPost("[action]")]
         public async Task<IActionResult> AutenticarAsync([FromBody] LoginRequest loqinRequest)
         {
